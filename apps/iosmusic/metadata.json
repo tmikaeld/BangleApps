@@ -12,4 +12,4 @@
     {"name":"iosmusic.app.js","url":"app.js"},
     {"name":"iosmusic.img","url":"app-icon.js","evaluate":true}
   ]
-} 
+}
