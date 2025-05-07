@@ -10,7 +10,7 @@
   "readme": "README.md",
   "storage": [
     {"name":"stumpe.app.js","url":"app.js"},
-    {"name":"stumpe.img","url":"stumpe-image.png","evaluate":true}
+    {"name":"stumpe.img","url":"stumpe-image.png"}
   ],
   "entrypoint": "stumpe.app.js"
 } 
