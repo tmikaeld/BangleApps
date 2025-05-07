@@ -69,17 +69,28 @@ function sendMediaCommand(commandStr) {
   try {
     if (controlMode === "hid") {
       let hidCode = 0;
+      let isVolumeCmd = false;
+
       if (commandStr === "next") hidCode = 0x01;
       else if (commandStr === "prev") hidCode = 0x02;
       else if (commandStr === "playpause") hidCode = 0x10;
-      else if (commandStr === "volup") hidCode = 0x40;
-      else if (commandStr === "voldown") hidCode = 0x80;
+      else if (commandStr === "volup") { hidCode = 0x40; isVolumeCmd = true; }
+      else if (commandStr === "voldown") { hidCode = 0x80; isVolumeCmd = true; }
       else return; // Unknown command for HID
 
-      NRF.sendHIDReport([1, hidCode], () => {
-        NRF.sendHIDReport([1, 0]); // Release key
-      });
-      console.log("Sent HID:", commandStr, "->", hidCode);
+      if (isVolumeCmd) {
+        // For volume, send press then release with a short timeout for a distinct pulse
+        NRF.sendHIDReport([1, hidCode]);
+        setTimeout(() => {
+          NRF.sendHIDReport([1, 0]); // Release key
+        }, 50); // 50ms delay, adjust if needed
+      } else {
+        // For other commands, use callback for release
+        NRF.sendHIDReport([1, hidCode], () => {
+          NRF.sendHIDReport([1, 0]); // Release key
+        });
+      }
+      console.log("Sent HID:", commandStr, isVolumeCmd ? "(timed release)" : "(callback release)");
     } else if (controlMode === "ams") {
       // AMS commands are the same as our string commands
       Bangle.musicControl(commandStr);
