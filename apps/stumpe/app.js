@@ -31,8 +31,8 @@ try {
   g.drawString("ERROR:", W/2, H/2 - 20);
   g.setFont("6x8", 1);
   g.drawString(e.toString().substr(0,40), W/2, H/2);
-  g.drawString("Check stumpe-image.png", W/2, H/2 + 20);
-  g.drawString("and app metadata.", W/2, H/2 + 35);
+  g.drawString("Check stumpe-image.js", W/2, H/2 + 20);
+  g.drawString("and app logs.", W/2, H/2 + 35);
   // Set a watch to exit on button press if error occurs
   setWatch(() => load(), BTN1, {edge:"falling"});
   return; // Stop further execution
@@ -47,12 +47,12 @@ if (image) {
   g.setColor(0,1,0); // Green
   g.fillRect(g.getWidth()-5, g.getHeight()-5, g.getWidth()-1, g.getHeight()-1);
 } else {
-  // This case should be caught by the error handling, but as a fallback:
-  console.log("[StumpeApp] Image variable is unexpectedly not set after try-catch.");
+  // This case should ideally be caught by the try-catch block above if !image is true.
+  console.log("[StumpeApp] Image variable is unexpectedly not set after try-catch (should have been caught).");
   g.setColor(g.theme.fg);
   g.setFontAlign(0,0);
   g.setFont("6x8", 2);
-  g.drawString("Image Load Fail", g.getWidth()/2, g.getHeight()/2);
+  g.drawString("Internal Load Fail", g.getWidth()/2, g.getHeight()/2);
 }
 
 // Allow exiting by pressing the button
