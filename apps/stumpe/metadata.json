@@ -1,8 +1,8 @@
 {
   "id": "stumpe",
-  "name": "Stumpe Image Viewer",
+  "name": "Stumpe Companion",
   "version": "0.01",
-  "description": "Displays the stumpe-image.png from the app's directory.",
+  "description": "It's not safe to go without a stumpe.",
   "icon": "app.png",
   "type": "app",
   "tags": "image,display,stumpe",
