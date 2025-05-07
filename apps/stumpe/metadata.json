@@ -1,0 +1,16 @@
+{
+  "id": "stumpe",
+  "name": "Stumpe Image Viewer",
+  "version": "0.01",
+  "description": "Displays the stumpe-image.png from the app's directory.",
+  "icon": "app.png",
+  "type": "app",
+  "tags": "image,display,stumpe",
+  "supports" : ["BANGLEJS", "BANGLEJS2"],
+  "readme": "README.md",
+  "storage": [
+    {"name":"stumpe.app.js","url":"app.js"},
+    {"name":"stumpe.img","url":"stumpe-image.png","evaluate":true}
+  ],
+  "entrypoint": "stumpe.app.js"
+} 
