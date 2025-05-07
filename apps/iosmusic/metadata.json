@@ -4,7 +4,7 @@
   "shortName": "iOSMusic",
   "version": "0.01",
   "description": "Simple Play/Pause toggle for music on a connected iOS device.",
-  "icon": "iosmusic.img",
+  "icon":"app.png",
   "type": "app",
   "tags": "music,ios,tool,media",
   "supports": ["BANGLEJS2"],
