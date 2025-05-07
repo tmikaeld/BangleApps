@@ -64,10 +64,10 @@ const onDrag = function(e) {
           }
         } else { // More vertical than horizontal
           if (dy < 0) { // Negative dy is swipe up
-            command = "volumeup";
+            command = "volup";
             feedbackMsg = "Vol Up";
           } else {
-            command = "volumedown";
+            command = "voldown";
             feedbackMsg = "Vol Down";
           }
         }
