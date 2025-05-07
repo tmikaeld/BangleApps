@@ -10,29 +10,38 @@ function draw() {
   g.drawString("Tap Screen", g.getWidth()/2, g.getHeight()/2 + 15);
 }
 
-// Set up touch handler for the whole screen
-Bangle.on('touch', function(button, xy) {
+// Define the touch handler function
+const onTouch = function(button, xy) {
   if (typeof Bangle.musicControl === "function") {
-    Bangle.buzz(40); // Short buzz for feedback
-    Bangle.musicControl(2); // Command ID 2 is for Toggle Play/Pause for AMS
+    try {
+      Bangle.buzz(40); // Short buzz for feedback
+      Bangle.musicControl("playpause"); // Correct command for toggle Play/Pause
 
-    // Visual feedback
-    g.setColor(g.theme.fg);
-    g.setFont("6x8", 2);
-    g.setFontAlign(0,0);
-    // Clear previous message area if any (though not strictly needed here)
-    g.clearRect(0, g.getHeight() - 22, g.getWidth()-1, g.getHeight()-1 - widget_utils.getWidgetsHeight());
+      // Visual feedback for "Sent!"
+      g.setColor(g.theme.fg);
+      g.setFont("6x8", 2);
+      g.setFontAlign(0,0);
+      // Position "Sent!" near the bottom of the app's drawing area
+      const msgY = Bangle.appRect.y2 - 10; // 10px from the bottom of appRect
+      // Clear a small area for the message before drawing
+      g.clearRect(Bangle.appRect.x, msgY - 8, Bangle.appRect.x2, msgY + 8);
+      g.drawString("Sent!", g.getWidth()/2, msgY); // Centered horizontally
 
-    g.drawString("Sent!", g.getWidth()/2, g.getHeight() - (widget_utils.getWidgetsHeight() ? widget_utils.getWidgetsHeight() : 10) - 10); // Position above widgets or bottom
-    setTimeout(() => {
-        // Clear the "Sent!" message after a bit by redrawing main UI
-        // This also handles clearing the specific area correctly.
-        draw();
-    }, 1000);
+      setTimeout(() => {
+          // Clear the "Sent!" message by redrawing main UI
+          draw();
+      }, 1000);
+    } catch (e) {
+      // Show an error if Bangle.musicControl fails
+      E.showAlert("Music cmd fail:\n" + e.toString().substr(0,100), "Error"); // Show first 100 chars of error
+    }
   } else {
-    E.showAlert("iOS music control\nnot available.", "Error");
+    E.showAlert("iOS music ctrl\nnot available.", "Error");
   }
-});
+};
+
+// Set up touch handler for the whole screen
+Bangle.on('touch', onTouch);
 
 // Initial draw of the UI
 draw();
@@ -44,5 +53,5 @@ Bangle.drawWidgets();
 // When the app is exited (e.g. by pressing the button),
 // clear the touch listener to prevent it from firing in other apps.
 E.on('kill', () => {
-  Bangle.removeListener('touch', arguments.callee);
+  Bangle.removeListener('touch', onTouch);
 }); 
