@@ -35,7 +35,6 @@ try {
   g.drawString("and app logs.", W/2, H/2 + 35);
   // Set a watch to exit on button press if error occurs
   setWatch(() => load(), BTN1, {edge:"falling"});
-  return; // Stop further execution
 }
 
 // If image is loaded successfully, attempt to draw it
