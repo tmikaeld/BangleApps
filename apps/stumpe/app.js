@@ -4,8 +4,8 @@ g.clear(); // Clear the entire screen
 
 let image; // Declared outside
 try {
-  console.log("[StumpeApp] Attempting to load stumpe.img...");
-  image = require("Storage").read("stumpe.img");
+  console.log("[StumpeApp] Attempting to load stumpe.mainimg.img...");
+  image = require("Storage").read("stumpe.mainimg.img");
   
   let imageType = typeof image;
   let imagePreview = "(not logged)";
